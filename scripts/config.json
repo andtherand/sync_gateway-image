@@ -1,0 +1,11 @@
+{
+  "interface":":4984",
+  "adminInterface":":4985",
+  "log":["REST"],
+   "databases":{
+      "sync_gateway":{
+         "server":"walrus:/opt/couchbase-sync-gateway/data",
+         "sync":`function(doc) {channel(doc.channels);}`
+      }
+   }
+}
