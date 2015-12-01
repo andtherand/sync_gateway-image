@@ -9,24 +9,23 @@ RUN apt-get -q update && DEBIAN_FRONTEND=noninteractive && \
 
 ENV SYNC_VERSION=1.1.1 \
         SYNC_RELEASE_URL=http://packages.couchbase.com/releases/couchbase-sync-gateway
-ENV SYNC_PACKAGE=couchbase-sync-gateway-community_$SYNC_VERSION-10_x86_64.deb
-#http://packages.couchbase.com/releases/couchbase-sync-gateway/1.1.1/couchbase-sync-gateway-community_1.1.1-10_x86_64.deb
+ENV SYNC_PACKAGE=couchbase-sync-gateway-community_$SYNC_VERSION-10_x86_64.deb \
+        SYNC_CONFIG_FILE=/opt/couchbase-sync-gateway/conf/config.json
 
 # Install sync_gateway from deb package
 RUN wget -N -q $SYNC_RELEASE_URL/$SYNC_VERSION/$SYNC_PACKAGE && \
-    #echo "$CB_SHA256  $CB_PACKAGE" | sha256sum -c - && \
     dpkg -i ./$SYNC_PACKAGE && rm -f ./$SYNC_PACKAGE
 
 # add init script for runit
 COPY scripts/run /etc/service/couchbase-sync_gateway/run
 RUN chmod +x /etc/service/couchbase-sync_gateway/run
 
-COPY scripts/config.json /opt/couchbase-sync-gateway/config.json
-RUN chown couchbase:couchbase /opt/couchbase-sync-gateway/config.json
+RUN mkdir -p /opt/couchbase-sync-gateway/{data,conf}
 
-RUN mkdir -p /opt/couchbase-sync-gateway/data
+COPY scripts/config.json /opt/couchbase-sync-gateway/conf/config.json
+RUN chown couchbase:couchbase /opt/couchbase-sync-gateway/conf/config.json
 
-#ENTRYPOINT ["/usr/local/bin/sync_gateway"]
 CMD ["/sbin/my_init"]
 
 EXPOSE 4984 4985
+VOLUME "/opt/couchbase-sync-gateway/conf"
