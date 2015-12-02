@@ -20,7 +20,7 @@ RUN wget -N -q $SYNC_RELEASE_URL/$SYNC_VERSION/$SYNC_PACKAGE && \
 COPY scripts/run /etc/service/couchbase-sync_gateway/run
 RUN chmod +x /etc/service/couchbase-sync_gateway/run
 
-RUN mkdir -p /opt/couchbase-sync-gateway/{data,conf}
+RUN mkdir -p /opt/couchbase-sync-gateway/data && mkdir -p /opt/couchbase-sync-gateway/conf
 
 COPY scripts/config.json /opt/couchbase-sync-gateway/conf/config.json
 RUN chown couchbase:couchbase /opt/couchbase-sync-gateway/conf/config.json
