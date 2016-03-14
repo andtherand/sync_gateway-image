@@ -7,9 +7,9 @@ RUN apt-get -q update && DEBIAN_FRONTEND=noninteractive && \
         apt-get autoclean && apt-get -qy autoremove && \
         apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV SYNC_VERSION=1.1.1 \
+ENV SYNC_VERSION=1.2.0-79 \
         SYNC_RELEASE_URL=http://packages.couchbase.com/releases/couchbase-sync-gateway
-ENV SYNC_PACKAGE=couchbase-sync-gateway-community_$SYNC_VERSION-10_x86_64.deb \
+ENV SYNC_PACKAGE=couchbase-sync-gateway-community_$SYNC_VERSION_x86_64.deb \
         SYNC_CONFIG_FILE=/opt/couchbase-sync-gateway/conf/config.json
 
 # Install sync_gateway from deb package

@@ -1,0 +1,1 @@
+docker run --name sg -d -p 4985:4985 -p 4984:4984 mychiara/couchbase-sync_gateway
