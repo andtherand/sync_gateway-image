@@ -3,5 +3,5 @@ CONTAINER=sg
 IMAGE_NAME=mychiara/couchbase-sync_gateway
 
 docker stop $CONTAINER && docker rm $CONTAINER && docker rmi $IMAGE_NAME
-source ./build.sh
-source ./run.sh
+source ./build
+source ./run
